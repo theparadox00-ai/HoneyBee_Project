@@ -21,11 +21,17 @@
 #include "Adafruit_SHT4x.h" // Precision Temp/Humidity 
 #include <ESP_Mail_Client.h> // Email alerts for swarming 
 
+
 // ESP32 Pins Configuration
 #define SD_CS_PIN 13    // Standard CS 
 #define HX711_DOUT_PIN 4    // Example GPIO for HX711 
 #define HX711_SCK_PIN  5    // Example GPIO for HX711
 #define CLOCK_INTERRUPT_PIN 33 // Clock Sleep Interrupt
+//AUDIO (ICS43434)
+#define I2S_SCK_PIN 25      // Serial Clock (BCLK)
+#define I2S_WS_PIN  26      // Word Select (LRC)
+#define I2S_SD_PIN  27      // Serial Data (DIN)
+#define I2S_PORT I2S_NUM_0
 
 // System Constants
 #define CALIBRATION_FACTOR 404.70 // Replace with your field-tested value [
@@ -46,5 +52,6 @@ const int   SMTP_PORT       = 465;
 const char* AUTHOR_EMAIL    = "suryadiya04@gmail.com";
 const char* AUTHOR_PASSWORD = "**** **** **** ****"; 
 const char* RECIPIENT_EMAIL = "suryadiya04@gmail.com";
+
 
 #endif
