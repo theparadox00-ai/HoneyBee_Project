@@ -2,22 +2,29 @@
 
 HX711_ADC LoadCell(HX711_DOUT_PIN, HX711_SCK_PIN);
 
-void lc_init() {
+float LoadCellReading(int bootCount, long &savedOffset) {
     LoadCell.begin();
-    LoadCell.start(10); // experimental value to improve the latency 
-    LoadCell.setCalFactor(CALIBRATION_FACTOR); 
-}
 
-float LoadCellReading() {
-    unsigned long timeout = millis() + 10; // experimental value to improve teh latency
-    while (millis() < timeout) {
-        if (LoadCell.update()) {
-            return LoadCell.getData();
-        }
+    bool _tare = (bootCount == 0);
+    unsigned long stabilizingTime = 2000;
+
+    LoadCell.start(stabilizingTime, _tare);
+    LoadCell.setCalFactor("xxxx")); // get the value after calibration ..
+
+    if (_tare) {
+        savedOffset = LoadCell.getTareOffset();
+        Serial.print("New Zero Point Saved: ");
+        Serial.println(savedOffset);
+    } else {
+        LoadCell.setTareOffset(savedOffset);
+        Serial.print("Zero Point Restored: ");
+        Serial.println(savedOffset);
     }
-    return -999.0;
-}
 
-void lc_sleep() {
-    LoadCell.powerDown();
+    float weight = LoadCell.getData();
+
+    digitalWrite(HX711_SCK_PIN, LOW);
+    digitalWrite(HX711_SCK_PIN, HIGH);
+    
+    return weight;
 }
