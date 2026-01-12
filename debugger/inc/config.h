@@ -2,7 +2,7 @@
     I2C (Rtc) - 17 (SDA) , 16 (SCL) , 33 (SQW)
     I2C (SHT45) - 21 (SDA) , 23 (SCL) 
     LoadCell - 5 (SCK) , 4 (DOUT) 
-    Audio - 25 (SCK) , 26 (WS) , 27 (SD)
+    I2S (ICS-43434) - 25 (SCK) , 26 (WS) , 27 (SD)
 */
 
 #ifndef CONFIG_H
@@ -55,5 +55,6 @@ const char* RECIPIENT_EMAIL = "suryadiya04@gmail.com";
 
 
 #endif
+
 
 
