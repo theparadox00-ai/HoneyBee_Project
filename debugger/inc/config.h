@@ -27,6 +27,7 @@
 #define HX711_DOUT_PIN 4    // Example GPIO for HX711 
 #define HX711_SCK_PIN  5    // Example GPIO for HX711
 #define CLOCK_INTERRUPT_PIN 33 // Clock Sleep Interrupt
+
 //AUDIO (ICS43434)
 #define I2S_SCK_PIN 25      // Serial Clock (BCLK)
 #define I2S_WS_PIN  26      // Word Select (LRC)
@@ -55,3 +56,4 @@ const char* RECIPIENT_EMAIL = "suryadiya04@gmail.com";
 
 
 #endif
+
