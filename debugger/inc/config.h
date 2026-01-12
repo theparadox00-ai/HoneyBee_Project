@@ -1,8 +1,8 @@
-/*  SPI Pre configured SPI (SD) - 18 (SCK/SCLK) , 19 (MISO) , 23 (MOSI) , 13 (CS)
-    I2C (Rtc) - 17 (SDA) , 16 (SCL) , 33 (SQW)
-    I2C (SHT45) - 21 (SDA) , 23 (SCL) 
-    LoadCell - 5 (SCK) , 4 (DOUT) 
-    I2S (ICS-43434) - 25 (SCK) , 26 (WS) , 27 (SD)
+/*  SPI Pre configured SPI (SD) - 18 (SCK/SCLK) , 19 (MISO) , 23 (MOSI) , 13 (CS) -------------- Power : 5v
+    I2C (Rtc) - 17 (SDA) , 16 (SCL) , 33 (SQW) -------------- Power : 3.3v
+    I2C (SHT45) - 21 (SDA) , 22 (SCL) ----------- Power : 3.3v
+    LoadCell - 5 (SCK) , 4 (DOUT) ------------- Power : 3.3v
+    I2S (ICS-43434) - 25 (SCK) , 26 (WS) , 27 (SD) ------------ Power : 3.3v
 */
 
 #ifndef CONFIG_H
@@ -55,6 +55,7 @@ const char* RECIPIENT_EMAIL = "suryadiya04@gmail.com";
 
 
 #endif
+
 
 
 
