@@ -27,7 +27,6 @@ void setup() {
     if (!Init_SD()) {
         Serial.println("SD Init Failed!");
     }
-    lc_init(); 
     SHT45.init(); 
 
     char timeStr[25];
@@ -98,8 +97,6 @@ void setup() {
         WiFi.disconnect(true);
         WiFi.mode(WIFI_OFF);
     }
-
-    lc_sleep();
     SD_Sleep(); 
     Alarm_();   
     bootCount++;
