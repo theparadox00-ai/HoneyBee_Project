@@ -11,7 +11,8 @@
 #include "sd_data.h"
 #include "transmission.h"
 
-RTC_DATA_ATTR int bootCount = 1; 
+RTC_DATA_ATTR int bootCount = 0; 
+RTC_DATA_ATTR long rtc_tare_offset = 0;
 
 T_S_sensor SHT45;
 
@@ -42,7 +43,7 @@ void setup() {
     Serial.print("Boot Count: ");
     Serial.println(bootCount);
 
-    float loadValue = LoadCellReading();
+    float loadValue = LoadCellReading(bootCount,rtc_tare_offset);
     if (loadValue != -999.0) {
         LoadCell_write(timeStr, loadValue);
     }
