@@ -2,8 +2,7 @@
     I2C (Rtc) - 17 (SDA) , 16 (SCL) , 33 (SQW)
     I2C (SHT45) - 21 (SDA) , 23 (SCL) 
     LoadCell - 5 (SCK) , 4 (DOUT) 
-    ====== Shri Darshan Add all the Pins required to connect ICS43434 ======= // comment it down and make there are pins different than the mentioned above 
-    Config.h has all the configuration setting needed for Bee - keeping .
+    Audio - 25 (SCK) , 26 (WS) , 27 (SD)
 */
 
 #ifndef CONFIG_H
@@ -29,9 +28,9 @@
 #define CLOCK_INTERRUPT_PIN 33 // Clock Sleep Interrupt
 
 //AUDIO (ICS43434)
-#define I2S_SCK_PIN 25      // Serial Clock (BCLK)
-#define I2S_WS_PIN  26      // Word Select (LRC)
-#define I2S_SD_PIN  27      // Serial Data (DIN)
+#define I2S_SCK_PIN 25      // Serial Clock 
+#define I2S_WS_PIN  26      // Word Select 
+#define I2S_SD_PIN  27      // Serial Data 
 #define I2S_PORT I2S_NUM_0
 
 // System Constants
@@ -56,4 +55,5 @@ const char* RECIPIENT_EMAIL = "suryadiya04@gmail.com";
 
 
 #endif
+
 
