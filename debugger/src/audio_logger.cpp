@@ -1,5 +1,7 @@
 #include "audio_logger.h"
 #include <driver/i2s.h>
+#include "FS.h"
+#include "SD.h"
 
 // Audio Settings
 #define SAMPLE_RATE 16000      
