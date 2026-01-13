@@ -10,6 +10,7 @@
 #include "rtc_config.h" 
 #include "sd_data.h"
 #include "transmission.h"
+#include "audio_logger.h"
 
 RTC_DATA_ATTR int bootCount = 0; 
 RTC_DATA_ATTR long rtc_tare_offset = 0;
@@ -62,6 +63,15 @@ void setup() {
             Serial.println("SHT Data Logged (Even Boot)");
         }
     }
+
+   if ((bootCount % 6 == 0)) {
+        if (bootCount != 0) {
+            Serial.println("--- Starting Audio ---");
+            audio_init();
+            audio_record(String(timeStr)); 
+            audio_sleep(); 
+            Serial.println("--- Audio Done ---");
+        }
 
     if ((bootCount % 6 == 0)) {
         if(bootCount == 0){
