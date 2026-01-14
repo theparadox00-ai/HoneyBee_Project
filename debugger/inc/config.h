@@ -42,13 +42,13 @@
 #define RECORD_TIME_SEC 10     
 
 // NTP server - Login 
-const char* ntpServer = "time.google.com";
-const long  gmtOffset_sec     = 19800; 
-const int   daylightOffset_sec = 0;
+extern const char* ntpServer ;
+extern const long  gmtOffset_sec ; 
+extern const int   daylightOffset_sec ;
 
 // Wifi Pass 
-extern const char* WIFI_SSID = "vivo V23e 5G";
-extern const char* WIFI_PASS = "suryadiya";
+extern const char* WIFI_SSID ;
+extern const char* WIFI_PASS ;
 
 // SMTP - Data transfer
 extern const char* SMTP_HOST ;
@@ -58,6 +58,7 @@ extern const char* AUTHOR_PASSWORD ;
 extern const char* RECIPIENT_EMAIL ;
 
 #endif
+
 
 
 
