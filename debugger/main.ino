@@ -1,5 +1,5 @@
 /* This is the main program which represents the workflow of the whole program for data logging 
-   While deploying the system the system wakes up every 20s for getting the load cell sensor reading (Storing it in SD card)
+   While deploying the system wakes up every 10s for getting the Audio data , every 20s for getting the load cell sensor reading (Storing it in SD card)
    every 15 mins for getting the SHT45 sensor reading 
    The data is then sent to SMTP server to the Gmail
 */
@@ -10,7 +10,7 @@
 #include "rtc_config.h" 
 #include "sd_data.h"
 #include "transmission.h"
-#include "audio_logger.h"
+#include "audio.h"
 
 RTC_DATA_ATTR int bootCount = 0; 
 RTC_DATA_ATTR long rtc_tare_offset = 0;
@@ -31,68 +31,65 @@ void setup() {
     if (!Init_SD()) {
         Serial.println("SD Init Failed!");
     }
-    SHT45.init(); 
 
     char timeStr[25];
-    if(bootCount != 1){
+    if(bootCount != 0){
         Time_(timeStr);
         Serial.println(timeStr);
     }
 
-    if(bootCount == 1){
+    if(bootCount == 0){
         clock_Synchronization();
     }
 
     Serial.print("Boot Count: ");
     Serial.println(bootCount);
 
-    float loadValue = LoadCellReading(bootCount,rtc_tare_offset);
-    if (loadValue != -999.0) {
-        LoadCell_write(timeStr, loadValue);
-    }
-    Serial.print("Weight : ");
-    Serial.println(loadValue);
+    Serial.println("--- Starting Audio ---");
+    audio_init();
+    audio_record(String(timeStr)); 
+    audio_sleep(); 
+    Serial.println("--- Audio Done ---");
 
-    if (bootCount % 1 == 0) {
+    if((bootCount % 2 == 0) && (bootCount != 0)){
+         float loadValue = LoadCellReading(bootCount,rtc_tare_offset);
+         if (loadValue != -999.0) {
+         LoadCell_write(timeStr, loadValue);
+         }
+         Serial.print("Weight : ");
+         Serial.println(loadValue);
+   }
+   
+    if ((bootCount % 900 == 0) && (bootCount != 0)) {
         float tempValue = -999.0;
         float humiValue = -999.0;
         SHT45.readTempHum(tempValue, humiValue);
-
         Serial.print(tempValue);
         Serial.print(",");
         Serial.println(humiValue);
-        if (tempValue != -999.0) {
+        if ((tempValue != -999.0) && (humiValue != -999.0)) {
             SHT_write(timeStr, tempValue, humiValue);
             Serial.println("SHT Data Logged (Even Boot)");
         }
-    }
+   }
 
-   if ((bootCount % 6 == 0)) {
-        if (bootCount != 0) {
-            Serial.println("--- Starting Audio ---");
-            audio_init();
-            audio_record(String(timeStr)); 
-            audio_sleep(); 
-            Serial.println("--- Audio Done ---");
-        }
-
-    if ((bootCount % 6 == 0)) {
-        if(bootCount == 0){
-            WiFi.begin(WIFI_SSID, WIFI_PASS);
-            if (clock_Synchronization()) {
-                Serial.println("RTC Synchronized with NTP.");
-                Serial.println(timeStr);
-            } else {
-                Serial.println("Clock Sync Failed.");
-            }
-        }
-        unsigned long startAttempt = millis();
-        while (WiFi.status() != WL_CONNECTED && millis() - startAttempt < 20000) {
-            delay(500);
+   if ((bootCount % 10800 == 0) && (bootCount != 0) ) {
+         WiFi.persistent(false);
+         WiFi.mode(WIFI_STA);
+         delay(100);
+         
+         WiFi.begin(WIFI_SSID, WIFI_PASS);
+         if (clock_Synchronization()) {
+            Serial.println("RTC Synchronized with NTP.");
+            Serial.println(timeStr);
+         } else {
+             Serial.println("Clock Sync Failed.");
+         }
+         unsigned long startAttempt = millis();
+         while (WiFi.status() != WL_CONNECTED && millis() - startAttempt < 25000) {
             Serial.print(".");
-        }
-
-        if (WiFi.status() == WL_CONNECTED) {
+         }
+         if (WiFi.status() == WL_CONNECTED) {
             if (clock_Synchronization()) {
                 Serial.println("RTC Synchronized with NTP.");
                 Serial.println(timeStr);
@@ -105,17 +102,22 @@ void setup() {
                 Serial.println("Email Failed.");
             }
         } else {
-            Serial.println("WiFi Failed.");
+            Serial.printf("WiFi Failed. Status: %d\n", WiFi.status());
         }
         WiFi.disconnect(true);
         WiFi.mode(WIFI_OFF);
     }
-    SD_Sleep(); 
-    Alarm_();   
-    bootCount++;
-    Serial.println("Entering deep sleep...");
-    Serial.flush();
-    esp_deep_sleep_start();
+
+   if(bootCount > 86400){
+      bootCount = 0;
+   }
+   
+   SD_Sleep(); 
+   Alarm_();   
+   bootCount++;
+   Serial.println("Entering deep sleep...");
+   Serial.flush();
+   esp_deep_sleep_start();
 }
 
 
