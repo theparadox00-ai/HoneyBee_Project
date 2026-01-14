@@ -1,5 +1,9 @@
 #include "rtc_config.h"
 
+const char* ntpServer = "time.google.com";
+const long  gmtOffset_sec     = 19800; 
+const int   daylightOffset_sec = 0;
+
 TwoWire I2C_RTC = TwoWire(1);
 RTC_DS3231 rtc; 
 
@@ -43,3 +47,4 @@ void Alarm_() {
     
     Serial.println("Alarm set for +20s");
 }
+
