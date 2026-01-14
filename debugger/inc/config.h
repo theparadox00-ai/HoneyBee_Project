@@ -37,6 +37,10 @@
 #define CALIBRATION_FACTOR 404.70 // Replace with your field-tested value [
 #define SLEEP_DURATION 17     // Logging interval for bee behavior
 
+// Audio Settings
+#define SAMPLE_RATE 16000      
+#define RECORD_TIME_SEC 10     
+
 // NTP server - Login 
 const char* ntpServer = "time.google.com";
 const long  gmtOffset_sec     = 19800; 
@@ -55,6 +59,7 @@ const char* RECIPIENT_EMAIL = "suryadiya04@gmail.com";
 
 
 #endif
+
 
 
 
