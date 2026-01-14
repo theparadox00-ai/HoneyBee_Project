@@ -35,7 +35,7 @@
 
 // System Constants
 #define CALIBRATION_FACTOR 404.70 // Replace with your field-tested value [
-#define SLEEP_DURATION 17     // Logging interval for bee behavior
+#define SLEEP_DURATION 10     // Logging interval for bee behavior
 
 // Audio Settings
 #define SAMPLE_RATE 16000      
@@ -58,6 +58,7 @@ extern const char* AUTHOR_PASSWORD ;
 extern const char* RECIPIENT_EMAIL ;
 
 #endif
+
 
 
 
