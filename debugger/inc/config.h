@@ -47,18 +47,18 @@ const long  gmtOffset_sec     = 19800;
 const int   daylightOffset_sec = 0;
 
 // Wifi Pass 
-const char* WIFI_SSID = "vivo V23e 5G";
-const char* WIFI_PASS = "suryadiya";
+extern const char* WIFI_SSID = "vivo V23e 5G";
+extern const char* WIFI_PASS = "suryadiya";
 
 // SMTP - Data transfer
-const char* SMTP_HOST       = "smtp.gmail.com";
-const int   SMTP_PORT       = 465;
-const char* AUTHOR_EMAIL    = "suryadiya04@gmail.com";
-const char* AUTHOR_PASSWORD = "**** **** **** ****"; 
-const char* RECIPIENT_EMAIL = "suryadiya04@gmail.com";
-
+extern const char* SMTP_HOST ;
+extern const int   SMTP_PORT ;
+extern const char* AUTHOR_EMAIL ;
+extern const char* AUTHOR_PASSWORD ; 
+extern const char* RECIPIENT_EMAIL ;
 
 #endif
+
 
 
 
