@@ -6,7 +6,7 @@ float LoadCellReading(int bootCount, long &savedOffset) {
     LoadCell.begin();
 
     bool _tare = (bootCount == 0);
-    unsigned long stabilizingTime = 2000;
+    unsigned long stabilizingTime = 3000;
 
     LoadCell.start(stabilizingTime, _tare);
     LoadCell.setCalFactor("xxxx")); // get the value after calibration ..
@@ -28,3 +28,4 @@ float LoadCellReading(int bootCount, long &savedOffset) {
     
     return weight;
 }
+
