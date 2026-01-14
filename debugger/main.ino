@@ -15,6 +15,9 @@
 RTC_DATA_ATTR int bootCount = 0; 
 RTC_DATA_ATTR long rtc_tare_offset = 0;
 
+const char* WIFI_SSID = "vivo V23e 5G";
+const char* WIFI_PASS = "suryadiya";
+
 T_S_sensor SHT45;
 
 void setup() {
