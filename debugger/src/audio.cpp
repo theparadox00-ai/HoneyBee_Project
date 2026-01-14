@@ -40,9 +40,7 @@ void writeWavHeader(File &file, int wavSize) {
     file.write((uint8_t*)&header, sizeof(WavHeader));
 }
 
-// ---------------------------------------------------------
-// 1. INITIALISATION
-// ---------------------------------------------------------
+// 1. Initialization
 void audio_init() {
     Serial.println("[Audio] Init I2S...");
 
@@ -76,53 +74,49 @@ void audio_init() {
     }
 }
 
-// ---------------------------------------------------------
-// 2. DATA COLLECTION (Recording to SD)
-// ---------------------------------------------------------
-void audio_record(String timestamp) {
-    // 1. Create Filename
-    String path = "/" + timestamp + ".wav";
-    path.replace(":", "-"); 
+// 2. DATA COLLECTION (Recording to SD) ---- I need you to create a function to get me the data no need store it to SD card , refer to sd_data.cpp you will understand 
+// void audio_record(String timestamp) {
+//     // 1. Create Filename
+//     String path = "/" + timestamp + ".wav";
+//     path.replace(":", "-"); 
     
-    Serial.print("[Audio] Recording: ");
-    Serial.println(path);
+//     Serial.print("[Audio] Recording: ");
+//     Serial.println(path);
 
-    // 2. Open SD File
-    File file = SD.open(path.c_str(), FILE_WRITE);
-    if (!file) {
-        Serial.println("[Audio] SD Error");
-        return;
-    }
+//     // 2. Open SD File
+//     File file = SD.open(path.c_str(), FILE_WRITE);
+//     if (!file) {
+//         Serial.println("[Audio] SD Error");
+//         return;
+//     }
 
-    // 3. Allocate RAM (2KB Buffer)
-    const int32_t i2s_buffer_len = 1024;
-    int16_t *i2s_read_buff = (int16_t*)calloc(i2s_buffer_len, sizeof(int16_t));
+//     // 3. Allocate RAM (2KB Buffer)
+//     const int32_t i2s_buffer_len = 1024;
+//     int16_t *i2s_read_buff = (int16_t*)calloc(i2s_buffer_len, sizeof(int16_t));
     
-    // 4. Record Loop
-    file.seek(44); // Skip header space
-    size_t bytes_read;
-    uint32_t total_bytes = 0;
-    uint32_t expected_bytes = SAMPLE_RATE * 2 * RECORD_TIME_SEC;
+//     // 4. Record Loop
+//     file.seek(44); // Skip header space
+//     size_t bytes_read;
+//     uint32_t total_bytes = 0;
+//     uint32_t expected_bytes = SAMPLE_RATE * 2 * RECORD_TIME_SEC;
     
-    while (total_bytes < expected_bytes) {
-        // Read Mic (DMA) -> Buffer -> Write SD
-        i2s_read(I2S_PORT, i2s_read_buff, i2s_buffer_len * 2, &bytes_read, portMAX_DELAY);
-        file.write((uint8_t*)i2s_read_buff, bytes_read);
-        total_bytes += bytes_read;
-    }
+//     while (total_bytes < expected_bytes) {
+//         // Read Mic (DMA) -> Buffer -> Write SD
+//         i2s_read(I2S_PORT, i2s_read_buff, i2s_buffer_len * 2, &bytes_read, portMAX_DELAY);
+//         file.write((uint8_t*)i2s_read_buff, bytes_read);
+//         total_bytes += bytes_read;
+//     }
 
-    // 5. Finish File
-    file.seek(0);
-    writeWavHeader(file, total_bytes);
-    file.close();
-    free(i2s_read_buff);
+//     // 5. Finish File
+//     file.seek(0);
+//     writeWavHeader(file, total_bytes);
+//     file.close();
+//     free(i2s_read_buff);
     
-    Serial.println("[Audio] Saved.");
-}
+//     Serial.println("[Audio] Saved.");
+// }
 
-// ---------------------------------------------------------
-// 3. SLEEP
-// ---------------------------------------------------------
+// 3. Sleep
 void audio_sleep() {
     i2s_driver_uninstall(I2S_PORT);
     Serial.println("[Audio] OFF");
