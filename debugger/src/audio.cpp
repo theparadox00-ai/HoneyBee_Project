@@ -1,9 +1,5 @@
 #include "audio.h"
 
-// Audio Settings
-#define SAMPLE_RATE 16000      
-#define RECORD_TIME_SEC 10     
-
 // WAV Header Structure (Standard for PC Playback)
 struct WavHeader {
   char riff_tag[4];
