@@ -1,5 +1,11 @@
 #include "transmission.h"
 
+const char* SMTP_HOST       = "smtp.gmail.com";
+const int   SMTP_PORT       = 465;
+const char* AUTHOR_EMAIL    = "suryadiya04@gmail.com";
+const char* AUTHOR_PASSWORD = "**** **** **** ****"; 
+const char* RECIPIENT_EMAIL = "suryadiya04@gmail.com";
+
 SMTPSession smtp;
 
 void smtpCallback(SMTP_Status status) {
@@ -74,3 +80,4 @@ bool Send_All_Data_Email() {
     Serial.println("Email Sent Successfully!");
     return true;
 }
+
