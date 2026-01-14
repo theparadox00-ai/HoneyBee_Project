@@ -61,6 +61,7 @@ void setup() {
    }
    
     if ((bootCount % 900 == 0) && (bootCount != 0)) {
+        SHT45.init();
         float tempValue = -999.0;
         float humiValue = -999.0;
         SHT45.readTempHum(tempValue, humiValue);
