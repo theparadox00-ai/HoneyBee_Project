@@ -19,6 +19,7 @@
 #include <RTClib.h>       // DS3231 Timekeeping 
 #include "Adafruit_SHT4x.h" // Precision Temp/Humidity 
 #include <ESP_Mail_Client.h> // Email alerts for swarming 
+#include <MAX1704X.h>
 
 
 // ESP32 Pins Configuration
@@ -58,6 +59,7 @@ extern const char* AUTHOR_PASSWORD ;
 extern const char* RECIPIENT_EMAIL ;
 
 #endif
+
 
 
 
