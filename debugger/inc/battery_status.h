@@ -3,7 +3,7 @@
 #ifndef BATTERY_STATUS_H
 #define BATTERY_STATUS_H
 
-#include "MAX1704X.h"
+#include "config.h"
 
 MAX170X gauge;
 
