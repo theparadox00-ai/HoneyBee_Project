@@ -11,6 +11,7 @@
 #include "sd_data.h"
 #include "transmission.h"
 #include "audio.h"
+#include "battery_status.h"
 
 RTC_DATA_ATTR int bootCount = 0; 
 RTC_DATA_ATTR long rtc_tare_offset = 0;
@@ -39,7 +40,15 @@ void setup() {
     }
 
     if(bootCount == 0){
+        Serial.println("Reset Calibration !!!! ");
+        float volt,per = 0;
         clock_Synchronization();
+        initBatteryGauge(bootCount);
+        BatteryStatus(volt, per);
+        Serial.print("Battery Voltage : ");
+        Serial.println(volt);
+        Serial.print("Battery Percentage : ");
+        Serial.println(per);
     }
 
     Serial.print("Boot Count: ");
@@ -75,6 +84,7 @@ void setup() {
    }
 
    if ((bootCount % 10800 == 0) && (bootCount != 0) ) {
+         float volt , per = 0;
          WiFi.persistent(false);
          WiFi.mode(WIFI_STA);
          delay(100);
@@ -105,6 +115,12 @@ void setup() {
         } else {
             Serial.printf("WiFi Failed. Status: %d\n", WiFi.status());
         }
+        initBatteryGauge(bootCount);
+        BatteryStatus(volt,per);
+        Serial.print("Battery Voltage : ");
+        Serial.println(volt);
+        Serial.print("Battery Percentage : ");
+        Serial.println(per);
         WiFi.disconnect(true);
         WiFi.mode(WIFI_OFF);
     }
