@@ -18,4 +18,5 @@ void initBatteryGauge(bootCount) {
 void BatteryStatus(float &volt, float &per) {
   volt = gauge.voltage();
   per = gauge.percent();
+  gauge.sleep();
 }
