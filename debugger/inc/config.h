@@ -40,7 +40,7 @@
 
 // Audio Settings
 #define SAMPLE_RATE 16000      
-#define RECORD_TIME_SEC 10     
+#define RECORD_TIME_SEC 5     
 
 // NTP server - Login 
 extern const char* ntpServer ;
@@ -59,6 +59,7 @@ extern const char* AUTHOR_PASSWORD ;
 extern const char* RECIPIENT_EMAIL ;
 
 #endif
+
 
 
 
