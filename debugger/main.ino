@@ -88,7 +88,12 @@ void setup() {
          WiFi.persistent(false);
          WiFi.mode(WIFI_STA);
          delay(100);
-         
+         initBatteryGauge(bootCount);
+         BatteryStatus(volt,per);
+         Serial.print("Battery Voltage : ");
+         Serial.println(volt);
+         Serial.print("Battery Percentage : ");
+         Serial.println(per);
          WiFi.begin(WIFI_SSID, WIFI_PASS);
          if (clock_Synchronization()) {
             Serial.println("RTC Synchronized with NTP.");
@@ -107,7 +112,7 @@ void setup() {
             } else {
                 Serial.println("Clock Sync Failed.");
             }
-            if (Send_All_Data_Email()) {
+            if (Send_All_Data_Email(volt,per)) {
                 Serial.println("Email Sent Successfully.");
             } else {
                 Serial.println("Email Failed.");
@@ -115,12 +120,7 @@ void setup() {
         } else {
             Serial.printf("WiFi Failed. Status: %d\n", WiFi.status());
         }
-        initBatteryGauge(bootCount);
-        BatteryStatus(volt,per);
-        Serial.print("Battery Voltage : ");
-        Serial.println(volt);
-        Serial.print("Battery Percentage : ");
-        Serial.println(per);
+
         WiFi.disconnect(true);
         WiFi.mode(WIFI_OFF);
     }
