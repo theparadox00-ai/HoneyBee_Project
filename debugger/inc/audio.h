@@ -1,5 +1,5 @@
-#ifndef AUDIO_LOGGER_H
-#define AUDIO_LOGGER_H
+#ifndef AUDIO_H
+#define AUDIO_H
 
 #include "config.h"
 
