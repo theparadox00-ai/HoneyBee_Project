@@ -12,15 +12,9 @@ bool Init_SD() {
         return false;
     }
     
-    if (!SD.exists(DIR_LOADCELL){
-        SD.mkdir(DIR_LOADCELL);
-    }
-    if (!SD.exists(DIR_SHT){ 
-        SD.mkdir(DIR_SHT);
-    }
-    if (!SD.exists(DIR_AUDIO){ 
-        SD.mkdir(DIR_AUDIO);
-    }
+    if (!SD.exists(DIR_LOADCELL) SD.mkdir(DIR_LOADCELL);
+    if (!SD.exists(DIR_SHT) SD.mkdir(DIR_SHT);
+    if (!SD.exists(DIR_AUDIO) SD.mkdir(DIR_AUDIO);
     
     String lcPath = String(DIR_LOADCELL) + "/data.csv";
     if (!SD.exists(lcPath)) {
@@ -88,4 +82,5 @@ void Audio_write(){
 void SD_Sleep() {
     SD.end(); 
 }
+
 
