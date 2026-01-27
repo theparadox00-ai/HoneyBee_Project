@@ -3,7 +3,7 @@
 const char* SMTP_HOST       = "smtp.gmail.com";
 const int   SMTP_PORT       = 465;
 const char* AUTHOR_EMAIL    = "suryadiya04@gmail.com";
-const char* AUTHOR_PASSWORD = "yxjo gelb vyha zmep"; 
+const char* AUTHOR_PASSWORD = "xxxx xxxx xxxx xxxx"; 
 const char* RECIPIENT_EMAIL = "suryadiya04@gmail.com";
 
 SMTPSession smtp;
@@ -76,3 +76,4 @@ bool Send_All_Data_Email() {
     Serial.println("Email Sent Successfully!");
     return true;
 }
+
