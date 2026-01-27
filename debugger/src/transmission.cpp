@@ -3,7 +3,7 @@
 const char* SMTP_HOST       = "smtp.gmail.com";
 const int   SMTP_PORT       = 465;
 const char* AUTHOR_EMAIL    = "suryadiya04@gmail.com";
-const char* AUTHOR_PASSWORD = "**** **** **** ****"; 
+const char* AUTHOR_PASSWORD = "yxjo gelb vyha zmep"; 
 const char* RECIPIENT_EMAIL = "suryadiya04@gmail.com";
 
 SMTPSession smtp;
@@ -12,7 +12,7 @@ void smtpCallback(SMTP_Status status) {
     Serial.println(status.info());
 }
 
-bool Send_All_Data_Email(float battery_voltage , float battery_percentage) {
+bool Send_All_Data_Email() {
     if (WiFi.status() != WL_CONNECTED) {
         Serial.println("Error: WiFi not connected!");
         return false;
@@ -22,11 +22,7 @@ bool Send_All_Data_Email(float battery_voltage , float battery_percentage) {
     smtp.callback(smtpCallback);
 
     ESP_Mail_Session session;
-    session.server.host_name = SMTP_HOST;
-    session.server.port = SMTP_PORT;
-    session.login.email = AUTHOR_EMAIL;
-    session.login.password = AUTHOR_PASSWORD;
-    session.login.user_domain = "";
+
 
     SMTP_Message message;
     message.sender.name = "ESP32 Data";
@@ -34,11 +30,9 @@ bool Send_All_Data_Email(float battery_voltage , float battery_percentage) {
     message.subject = "ESP32 Sensor Dataset";
     message.addRecipient("User", RECIPIENT_EMAIL);
 
-    String emailBody = "";
-    emailBody.reserve(64);
-    emailBody.printf("Data Logs Attached.\nBattery Status\n");
-    emailBody.printf("Battery Voltage: %.1fV\tBattery Percentage: %.1f%%\n",battery_voltage, battery_percentage);
-    
+    String emailBody = "Data Logs Attached.\n";
+    message.text.content = emailBody;
+
     SMTP_Attachment *att1 = nullptr;
     SMTP_Attachment *att2 = nullptr;
 
@@ -82,5 +76,3 @@ bool Send_All_Data_Email(float battery_voltage , float battery_percentage) {
     Serial.println("Email Sent Successfully!");
     return true;
 }
-
-
