@@ -2,39 +2,29 @@
 #define SD_CARD_H
 
 #include "config.h"
+#include <RTClib.h>
 
-// ── Permanent log directories ────────────────────────────────
-extern const char* DIR_LC;       // /LoadCell
-extern const char* DIR_SHT;      // /SHT45
-extern const char* DIR_BC;       // /BootCount
-extern const char* DIR_AUDIO;    // /Audio        (permanent WAV archive)
+extern const char* DIR_LC;
+extern const char* DIR_SHT;
+extern const char* DIR_BC;
+extern const char* DIR_AUDIO;
+extern const char* DIR_TX;
+extern const char* DIR_AUDIO_TX;
 
-// ── TX buffer directory (cleared after every successful email) ─
-extern const char* DIR_TX;       // /Transmit
-extern const char* DIR_AUDIO_TX; // /Transmit/Audio  (WAVs sent then deleted)
+extern const char* LC_PATH;
+extern const char* SHT_PATH;
 
-// ── Permanent CSV paths ──────────────────────────────────────
-extern const char* LC_PATH;      // /LoadCell/data.csv
-extern const char* SHT_PATH;     // /SHT45/data.csv
+extern const char* LC_TX_PATH;
+extern const char* SHT_TX_PATH;
 
-// ── TX CSV buffer paths ──────────────────────────────────────
-extern const char* LC_TX_PATH;   // /Transmit/lc_tx.csv
-extern const char* SHT_TX_PATH;  // /Transmit/sht_tx.csv
+bool        Init_SD();
+void        LoadCell_write(char* timestamp, float load);
+void        SHT_write(char* timestamp, float temp, float humi);
+const char* record_wav_file(const DateTime& now, const char* saveDir, bool writeTx = false);
+void        write_wav_header(File file, uint32_t data_size);
+void        clearTxFiles();
+void        SD_Sleep();
+uint8_t     readNightSleepFlag();
+void        writeNightSleepFlag(uint8_t val);
 
-// ── Functions ────────────────────────────────────────────────
-bool   Init_SD();
-void   LoadCell_write(char* timestamp, float load);
-void   SHT_write(char* timestamp, float temp, float humi);
-
-// WAV recording: saves to both /Audio and /Transmit/Audio
-void   record_wav_file(size_t bootCount);
-
-// Write WAV header to an open File object
-void   write_wav_header(File file, uint32_t data_size);
-
-// Clears TX CSV buffers and TX audio folder after successful email
-void   clearTxFiles();
-
-void   SD_Sleep();
-
-#endif
+#endif 
