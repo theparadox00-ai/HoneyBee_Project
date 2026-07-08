@@ -3,6 +3,12 @@
 
 #include "config.h"
 
-float LoadCellReading(int bootCount, long &savedOffset);
+void LoadCell_Init(long& savedOffset, bool offsetReady);
 
-#endif
+bool LoadCell_ReadOffsetFromSD(long* out);
+
+float LoadCell_Read();
+
+void LoadCell_Sleep();
+
+#endif 
