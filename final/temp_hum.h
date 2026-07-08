@@ -6,7 +6,7 @@
 class T_S_sensor {
 public:
     void init();
-    void readTempHum(float &temp, float &hum);
+    void readTempHum(float& temp, float& hum);
 private:
     SensirionI2cSht4x sht4;
 };
