@@ -16,21 +16,23 @@ void T_S_sensor::init() {
     uint32_t serialNumber = 0;
     error = sht4.serialNumber(serialNumber);
     if (error != NO_ERROR) {
-        Serial.print("ERR SHT45 serial#: ");
+        Serial.print("[SHT] ERR serial#: ");
         errorToString(error, errorMessage, sizeof(errorMessage));
         Serial.println(errorMessage);
     } else {
-        Serial.print("SHT45 OK  serial#: "); Serial.println(serialNumber);
+        Serial.print("[SHT] OK  serial#: ");
+        Serial.println(serialNumber);
     }
 }
 
-void T_S_sensor::readTempHum(float &temp, float &hum) {
+void T_S_sensor::readTempHum(float& temp, float& hum) {
     delay(20);
     error = sht4.measureHighPrecision(temp, hum);
     if (error != NO_ERROR) {
-        Serial.print("ERR SHT45 measure: ");
+        Serial.print("[SHT] ERR measure: ");
         errorToString(error, errorMessage, sizeof(errorMessage));
         Serial.println(errorMessage);
-        temp = -999.0f; hum = -999.0f;
+        temp = -999.0f;
+        hum  = -999.0f;
     }
 }
