@@ -4,8 +4,12 @@
 #include "config.h"
 #include "sd_card.h"
 
-// Sends TX buffer CSVs + WAV files as email attachments.
-// Clears TX buffers only on confirmed success.
 bool Send_All_Data_Email(int soc, float voltage);
 
-#endif
+bool Send_NightSleep_Email(int soc, float voltage);
+
+bool Send_LowBattery_Email(int soc, float voltage);
+
+bool Send_WakeupEmail(int soc, float voltage);
+
+#endif 
