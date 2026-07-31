@@ -1,4 +1,4 @@
-Beehive Monitoring System
+*Beehive Monitoring System*
 
 A low-power ESP32 data logger for remote honeybee hive monitoring. The node wakes on a timer, samples its sensors, writes everything to an SD card, periodically emails the accumulated data over WiFi, and sleeps through the night. Because it spends almost all of its time in deep sleep, the application runs once per wake rather than continuously every boot is a fresh start, not a continuation.
 
